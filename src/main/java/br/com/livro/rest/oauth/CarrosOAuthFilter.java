@@ -24,13 +24,13 @@ import br.com.livro.util.ServletUtil;
 @WebFilter("/rest/carrosv2/*")
 public class CarrosOAuthFilter implements Filter {
 
-	// Cria o fluxo de autorização
+	// Cria o fluxo de autorizaï¿½ï¿½o
 	public OAuth1AuthorizationFlow getAuthorizationFlow(HttpServletRequest request, String callbackUri) {
 		final ConsumerCredentials consumerCredentials = new ConsumerCredentials(MyApplication.CONSUMER_KEY,
 				MyApplication.CONSUMER_SECRET);
 		final FlowBuilder builder = OAuth1ClientSupport.builder(consumerCredentials).authorizationFlow(
-				"http://localhost:8080/Carros/rest/requestToken", "http://localhost:8080/Carros/rest/accessToken",
-				"http://localhost:8080/Carros/rest/authorize");
+				"http://localhost:8080/carros/rest/requestToken", "http://localhost:8080/carros/rest/accessToken",
+				"http://localhost:8080/carros/rest/authorize");
 		if (callbackUri != null) {
 			builder.callbackUri(callbackUri);
 		}
@@ -50,7 +50,7 @@ public class CarrosOAuthFilter implements Filter {
 			String oauth_verifier = req.getParameter("oauth_verifier");
 			String oauth_token = req.getParameter("oauth_token");
 			if (oauth_verifier != null && oauth_token != null) {
-				// Voltou do aplicacao, verifica o código
+				// Voltou do aplicacao, verifica o cï¿½digo
 				verify(req, oauth_verifier);
 			} else {
 				// Precisa redirecionar para o Twitter
@@ -58,7 +58,7 @@ public class CarrosOAuthFilter implements Filter {
 				return;
 			}
 		}
-		// Continua a requisição
+		// Continua a requisiï¿½ï¿½o
 		chain.doFilter(req, resp);
 	}
 
